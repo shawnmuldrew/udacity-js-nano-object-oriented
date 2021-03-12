@@ -1,9 +1,25 @@
-
+    // Import 
+    import {dinosaurs} from './dino.js';
+    console.log(dinosaurs);
+    console.log(dinosaurs.Dinos[0].species);
+    
     // Create Dino Constructor
-
+    function Dinosaur(species, weight, height, diet, where, when, fact) {
+        this.species = species;
+        this.weight = weight;
+        this.height = height;
+        this.diet = diet;
+        this.where = where;
+        this.when = when;
+        this.fact = fact;
+    }
 
     // Create Dino Objects
-
+    let dinoArray = []    
+    dinosaurs.Dinos.forEach((item) => {
+        dinoArray.push(new Dinosaur(item.species,item.weight, item.height, item.diet, item.where, item.when, item.fact))
+    })
+    console.log(dinoArray)
 
     // Create Human Object
 

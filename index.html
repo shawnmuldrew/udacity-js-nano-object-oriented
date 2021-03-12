@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,16 +12,17 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" rel="stylesheet">
     <link href="app.css" rel="stylesheet">
     <!-- Link to app.js with defer till HTML render -->
-    <script defer src="app.js"></script>
+    <script defer type="module" src="app.js"></script>
 </head>
+
 <body>
     <header>
-        <h2>Natural History Museum</h2> 
+        <h2>Natural History Museum</h2>
         <h1>Dinosaurs</h1>
         <h3>How do you compare?</h3>
     </header>
     <!-- Form to get user input -->
-    <form id="dino-compare">
+    <form hidden id="dino-compare">
         <div class="form-container">
             <p>Name:</p>
             <input id="name" class="form-field__full" type="name" name="name">
@@ -39,10 +41,24 @@
         </div>
     </form>
     <!-- .grid to attach tiles to -->
-    <main id="grid"></main>
+    <main id="grid">
+        <div class="grid-item">Box 1
+            <img src="images/anklyosaurus.png">
+        </div>
+        <div class="grid-item">Box 2</div>
+        <div class="grid-item">Box 3</div>
+        <div class="grid-item">Box 4</div>
+        <div class="grid-item">Box 5</div>
+        <div class="grid-item">Box 6</div>
+        <div class="grid-item">Box 7</div>
+        <div class="grid-item">Box 8</div>
+        <div class="grid-item">Box 9</div>
+    </main>
     <footer>
         <!-- Include information source -->
-        <p class="fine-print">Data Sourced from <a href="https://www.wikipedia.org/">Wikipedia.org</a>, all numbers are approximations.</p>
+        <p class="fine-print">Data Sourced from <a href="https://www.wikipedia.org/">Wikipedia.org</a>, all numbers are
+            approximations.</p>
     </footer>
 </body>
+
 </html>
