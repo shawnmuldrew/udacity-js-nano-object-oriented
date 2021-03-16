@@ -17,6 +17,7 @@
         this.when = when;
         this.fact = fact;
         this.image = image;
+        // Create Dino Compare Method 1
         this.compareWeight = function(weight) {
             if (weight > this.weight) {
                 return 'This dino weights less than you!';
@@ -24,17 +25,19 @@
                 return 'This dino weights more than you!';
             }
         };
+        // Create Dino Compare Method 2
         this.compareHeight = function(height) {
             if (height > this.height) {
                 return 'This dino is shorter than you!';
             }  else {
-                return 'This dino is taller more than you!';
+                return 'This dino is taller than you!';
             }
         };
+        // Create Dino Compare Method 3
         this.compareDiet = function(diet) {
             if (diet === this.diet) {
                 return `You are both ${diet}s`;
-            }  else {
+            }  else {   
                 return `You are a ${diet} and this dino is a ${this.diet}`;
             }
         };
@@ -80,18 +83,6 @@
         console.log(dinosaurList[0].compareDiet(human.diet));
 
         
-        // Create Dino Compare Method 1
-        // NOTE: Weight in JSON file is in lbs, height in inches. 
-
-        
-        // Create Dino Compare Method 2
-        // NOTE: Weight in JSON file is in lbs, height in inches.
-
-        
-        // Create Dino Compare Method 3
-        // NOTE: Weight in JSON file is in lbs, height in inches.
-
-
         // Generate Tiles for each Dino in Array
         const gridElement = document.getElementById('grid');
         dinosaurList.forEach((item, index) => {
@@ -102,21 +93,38 @@
                 gridElement.appendChild(div); 
             }
             let div = document.createElement('div');
-            div.innerHTML = item.species + '.<br />' + '<img src="'+item.image+'">' + item.fact;
+            let factNumber = Math.floor(Math.random() * 4) + 1; 
+            if (item.species === 'Pigeon') {
+                factNumber = 1;
+            }
+            let displayFact;
+            switch (factNumber) {
+                case 1:
+                    displayFact = item.fact;
+                    break;
+                case 2:
+                    displayFact = item.compareWeight(human.weight);
+                    break;
+                case 3:
+                    displayFact = item.compareHeight(human.height);
+                    break;
+                case 4:
+                    displayFact = item.compareDiet(human.diet);
+            }
+            div.innerHTML = item.species + '.<br />' + '<img src="'+item.image+'">' + displayFact;
             div.setAttribute('class', 'grid-item');
+            // Add tile to DOM
             gridElement.appendChild(div);
         })
         
-        // Add tiles to DOM
-
         // Remove form from screen
         const formElement = document.getElementById('dino-compare')
         formElement.style.display = "none";
 
-        // On button click, prepare and display infographic
-        
+        // On button click, prepare and display infographic     
         gridElement.style.display = "flex";
 
     });
+
 
 
