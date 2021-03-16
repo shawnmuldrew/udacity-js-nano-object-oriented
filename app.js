@@ -4,6 +4,7 @@
     console.log(dinosaurs.Dinos[0].species);
     const gridElement = document.getElementById('grid');
     gridElement.style.display = "none";
+    let dinosaurList = buildDinosaurs();
 
     
     // Create Dino Constructor
@@ -16,14 +17,37 @@
         this.when = when;
         this.fact = fact;
         this.image = image;
+        this.compareWeight = function(weight) {
+            if (weight > this.weight) {
+                return 'This dino weights less than you!';
+            }  else {
+                return 'This dino weights more than you!';
+            }
+        };
+        this.compareHeight = function(height) {
+            if (height > this.height) {
+                return 'This dino is shorter than you!';
+            }  else {
+                return 'This dino is taller more than you!';
+            }
+        };
+        this.compareDiet = function(diet) {
+            if (diet === this.diet) {
+                return `You are both ${diet}s`;
+            }  else {
+                return `You are a ${diet} and this dino is a ${this.diet}`;
+            }
+        };
     }
 
-    // Create Dino Objects
-    let dinoArray = []    
-    dinosaurs.Dinos.forEach((item) => {
-        dinoArray.push(new Dinosaur(item.species,item.weight, item.height, item.diet, item.where, item.when, item.fact, item.image))
-    })
-    console.log(dinoArray)
+    // Create Dinosaur array of objects
+    function buildDinosaurs () {
+        let dinoArray = []    
+        dinosaurs.Dinos.forEach((item) => {
+            dinoArray.push(new Dinosaur(item.species,item.weight, item.height, item.diet, item.where, item.when, item.fact, item.image))
+        })
+        return dinoArray;
+    }
 
     // Create Human Object
     function Human(name, weight, height, diet, image) {
@@ -46,10 +70,15 @@
             human.weight = parseFloat(document.getElementById('weight').value);
             human.diet = document.getElementById('diet').value;
         })(human);
-        console.log(human.name);
-        console.log(human.height);
-        console.log(human.weight);
-        console.log(human.diet);
+        // console.log(human.name);
+        // console.log(human.height);
+        // console.log(human.weight);
+        // console.log(human.diet);
+
+        console.log(dinosaurList[0].compareWeight(human.weight));
+        console.log(dinosaurList[0].compareHeight(human.height));
+        console.log(dinosaurList[0].compareDiet(human.diet));
+
         
         // Create Dino Compare Method 1
         // NOTE: Weight in JSON file is in lbs, height in inches. 
@@ -65,7 +94,7 @@
 
         // Generate Tiles for each Dino in Array
         const gridElement = document.getElementById('grid');
-        dinoArray.forEach((item, index) => {
+        dinosaurList.forEach((item, index) => {
             if (index === 4) {
                 let div = document.createElement('div');
                 div.innerHTML = human.name + '.<br />' + '<img src="'+human.image+'">' + human.diet;
