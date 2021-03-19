@@ -3,7 +3,22 @@
 
     // Hide grid
     const gridElement = document.getElementById('grid');
-    gridElement.style.display = "none";
+    const compareAgainButton = document.getElementById('compare-again');
+    const formElement = document.getElementById('dino-compare')
+        
+    function displayForm() {
+        gridElement.style.display = 'none';
+        compareAgainButton.style.display = 'none';
+        formElement.style.display = 'flex';
+    }
+    
+    function displayGrid() {
+        // Remove form from screen
+        formElement.style.display = 'none';
+        // Display grid
+        gridElement.style.display = 'flex';
+        compareAgainButton.style.display = 'flex';
+    }
 
     // Function to capitalize string
     const capitalize = (str) => {
@@ -49,6 +64,8 @@
             }
         };
     }
+
+    displayForm();
 
     // Create Dinosaur array of objects
     function buildDinosaurs () {
@@ -118,14 +135,16 @@
             gridElement.appendChild(div);
         })
         
-        // Remove form from screen
-        const formElement = document.getElementById('dino-compare')
-        formElement.style.display = "none";
+        displayGrid();
 
-        // On button click, prepare and display infographic     
-        gridElement.style.display = "flex";
+         // Remove form from screen
+        //  formElement.style.display = 'none';
+        // // On button click, prepare and display infographic     
+        // gridElement.style.display = 'flex';
+        // compareAgainButton.style.display = 'flex';
 
     });
 
-
-
+    document.getElementById('compare-again').addEventListener('click', function() {
+        displayForm();
+    })
