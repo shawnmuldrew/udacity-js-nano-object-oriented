@@ -10,6 +10,8 @@
         gridElement.style.display = 'none';
         compareAgainButton.style.display = 'none';
         formElement.style.display = 'flex';
+        document.getElementById('dino-compare').reset();
+        gridElement.innerHTML = '';
     }
     
     function displayGrid() {
@@ -79,27 +81,43 @@
     let dinosaurList = buildDinosaurs();
 
     // Create Human Object
-    function Human(name, weight, height, diet, image) {
+    function Human(name, weight, heightFeet,heightInches, diet, image) {
         this.name = name;
         this.weight = weight;
-        this.height = height;
+        this.heightFeet = heightFeet;
+        this.heightInches = heightInches;
         this.diet = diet;
         this.image = image;
     }
 
-    let human = new Human(null, null, null, null, 'images/human.png')
+    let human = new Human(null, null, null, null,null, 'images/human.png')
 
     // Use IIFE to get human data from form    
     document.getElementById('btn').addEventListener('click', function() {
         (function (human) {
             human.name = document.getElementById('name').value;
-            let feet = parseFloat(document.getElementById('feet').value);
-            let inches = parseFloat(document.getElementById('inches').value);
-            human.height = (feet * 12) + inches;
-            human.weight = parseFloat(document.getElementById('weight').value);
+            human.heightFeet = document.getElementById('feet').value;
+            human.heightInches = document.getElementById('inches').value;
+            human.weight = document.getElementById('weight').value;
             human.diet = document.getElementById('diet').value;
         })(human);
-        
+
+        // Validate the form fields
+        function validateFields(input, message) {
+            if (input == '') {
+                return message;
+            }
+            return '';
+        }
+        let alertNote = '';
+        alertNote = alertNote + validateFields(human.name, 'Name must be entered \n');
+        alertNote = alertNote + validateFields(human.heightFeet, 'Feet must be entered \n');
+        alertNote = alertNote + validateFields(human.heightInches, 'Inches must be entered \n');
+        alertNote = alertNote + validateFields(human.weight, 'Weight must be entered \n');
+        if (alertNote !== '') {
+            alert(alertNote);
+            return;
+        }
         // Generate Tiles for each Dino in Array
         dinosaurList.forEach((item, index) => {
             // Make sure human tile gets put in middle of grid
@@ -121,10 +139,10 @@
                     displayFact = item.fact;
                     break;
                 case 2:
-                    displayFact = item.compareWeight(human.weight);
+                    displayFact = item.compareWeight(parseInt(human.weight));
                     break;
                 case 3:
-                    displayFact = item.compareHeight(human.height);
+                    displayFact = item.compareHeight(parseInt(human.heightFeet)*12 + parseInt(human.heightInches));
                     break;
                 case 4:
                     displayFact = item.compareDiet(human.diet);
