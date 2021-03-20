@@ -5,7 +5,10 @@
     const gridElement = document.getElementById('grid');
     const compareAgainButton = document.getElementById('compare-again');
     const formElement = document.getElementById('dino-compare')
-        
+
+    /**
+    * @description Display and resets the form and hides the grid
+    */    
     function displayForm() {
         gridElement.style.display = 'none';
         compareAgainButton.style.display = 'none';
@@ -13,7 +16,10 @@
         document.getElementById('dino-compare').reset();
         gridElement.innerHTML = '';
     }
-    
+
+    /**
+    * @description Display the dinosaur card grid and hides the form
+    */
     function displayGrid() {
         // Remove form from screen
         formElement.style.display = 'none';
@@ -22,12 +28,26 @@
         compareAgainButton.style.display = 'flex';
     }
 
-    // Function to capitalize string
+    /**
+    * @description Capitalizes a string
+    * @returns {string} - string with first letter capitalized
+    */
     const capitalize = (str) => {
         return str.charAt(0).toUpperCase() + str.slice(1)
       }
     
-    // Create Dino Constructor
+    /**
+    * @description Represents a dinosaur
+    * @constructor
+    * @param {string} species - The species of the dinosaur
+    * @param {string} weight - The weight of the dinosaur
+    * @param {string} height - The height of the dinosaur
+    * @param {string} diet - The diet of the dinosaur
+    * @param {string} where - Where the dinosaur lived
+    * @param {string} when - Era the dinosaur lived in
+    * @param {string} fact - A fact about the dinosaur
+    * @param {string} image - Picture of the dinosaur
+    */
     function Dinosaur(species, weight, height, diet, where, when, fact, image) {
         this.species = species;
         this.weight = weight;
@@ -37,7 +57,7 @@
         this.when = when;
         this.fact = fact;
         this.image = image;
-        // Create Dino Compare Method 1
+        // Create Dino Compare Method for weight
         this.compareWeight = function(weight) {
             if (weight > this.weight) {
                 return 'This dino weights less than you!';
@@ -47,7 +67,7 @@
                 return 'You weight the same as this dino!!';
             }
         };
-        // Create Dino Compare Method 2
+        // Create Dino Compare Method for height
         this.compareHeight = function(height) {
             if (height > this.height) {
                 return 'This dino is shorter than you!';
@@ -57,7 +77,7 @@
                 return 'You are the same height as this dino!!'
             }
         };
-        // Create Dino Compare Method 3
+        // Create Dino Compare Method for diet
         this.compareDiet = function(diet) {
             if (diet.toUpperCase() === this.diet.toUpperCase()) {
                 return `You are both ${diet}s`;
@@ -69,7 +89,10 @@
 
     displayForm();
 
-    // Create Dinosaur array of objects
+    /**
+    * @description Creates Dinosaur array of objects
+    * @returns {Array} - an array of dinosaur objects
+    */
     function buildDinosaurs () {
         let dinoArray = []    
         dinosaurs.Dinos.forEach((item) => {
@@ -78,9 +101,31 @@
         return dinoArray;
     }
 
+    /**
+    * @description Shuffles an array order (re-arrange dinosaur list)
+    * @param {Array}
+    */
+    function shuffleArray (array) {
+        for(let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * i)
+            const temp = array[i]
+            array[i] = array[j]
+            array[j] = temp
+          }
+          //return array;
+    }
     let dinosaurList = buildDinosaurs();
 
-    // Create Human Object
+    /**
+    * @description Creates a Human object
+    * @constructor
+    * @param {string} name - The name of the human
+    * @param {string} weight - The weight of the human
+    * @param {string} heightFeet - The feet portion of the height of the human
+    * @param {string} heightInches - The inches portion of the height of the human
+    * @param {string} diet - The diet of the human
+    * @param {string} image - Picture of the human
+   */
     function Human(name, weight, heightFeet,heightInches, diet, image) {
         this.name = name;
         this.weight = weight;
@@ -90,7 +135,7 @@
         this.image = image;
     }
 
-    let human = new Human(null, null, null, null,null, 'images/human.png')
+    let human = new Human(null, null, null, null,null, 'images/human.png');
 
     // Use IIFE to get human data from form    
     document.getElementById('btn').addEventListener('click', function() {
@@ -123,7 +168,7 @@
             // Make sure human tile gets put in middle of grid
             if (index === 4) {
                 let div = document.createElement('div');
-                div.innerHTML = human.name + '<br />' + '<img src="'+human.image+'">' + human.diet;
+                div.innerHTML = human.name + '<br />' + '<img src="'+human.image+'">';
                 div.setAttribute('class', 'grid-item');
                 gridElement.appendChild(div); 
             }
@@ -155,14 +200,10 @@
         
         displayGrid();
 
-         // Remove form from screen
-        //  formElement.style.display = 'none';
-        // // On button click, prepare and display infographic     
-        // gridElement.style.display = 'flex';
-        // compareAgainButton.style.display = 'flex';
-
     });
 
+    // Do another comparison. Display form and shuffle dinosaur order
     document.getElementById('compare-again').addEventListener('click', function() {
         displayForm();
+        shuffleArray(dinosaurList);
     })
